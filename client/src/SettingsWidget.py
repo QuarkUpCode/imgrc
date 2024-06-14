@@ -1,47 +1,35 @@
-from PyQt5.QtWidgets import QWidget, QVBoxLayout, QPushButton, QLabel, QLineEdit
+from PyQt5.QtWidgets import QWidget, QVBoxLayout, QHBoxLayout, QPushButton, QLabel, QLineEdit
 
 class SettingsWidget(QWidget):
-    def __init__(self, listener, settings):
+	def __init__(self, listener):
 		super().__init__()
 		self.listener = listener
-		self.settings = settings
 
 		self.layout = QVBoxLayout()
-		self.layout.setSpacing(0)
+		self.layout.setSpacing(10)
 		self.layout.setContentsMargins(0,0,0,0)
 
-		self.layout.addLayout(self.getDimensionsLayout())
-		self.layout.addLayout(self.getServerLayout())
-		self.layout.addLayout(self.getLocalLayout())
+		self.addDimensionsLayout()
+		self.addServerLayout()
+		self.addLocalLayout()
 		
 		self.setLayout(self.layout)
 
-	def getDimensionsLayout(self):
-		dimensionsLayout = QHBoxLayout()
-		dimensionsLayout.setSpacing(0)
-		dimensionsLayout.setContentsMargins(0,0,0,0)
-		dimensionsLayout.addWidget(QLabel("Width "))
-		dimensionsLayout.addWidget(QLineEdit(settings.WIDTH.value))
-		dimensionsLayout.addWidget(QLabel("Height "))
-		dimensionsLayout.addWidget(QLineEdit(settings.HEIGHT.value))
-		return dimensionsLayout
-	
-	def getServerLayout(self):
-		serverLayout = QHBoxLayout()
-		serverLayout.setSpacing(0)
-		serverLayout.setContentsMargins(0,0,0,0)
-		serverLayout.addWidget(QLabel("Server IP "))
-		serverLayout.addWidget(QLineEdit(settings.SERVER_IP.value))
-		serverLayout.addWidget(QLabel("Server Port "))
-		serverLayout.addWidget(QLineEdit(settings.SERVER_PORT.value))
-		return serverLayout
+	def addLabelAndLineEdit(self, label, lineEdit):
+		layout = QHBoxLayout()
+		layout.addWidget(QLabel(label))
+		layout.addWidget(QLineEdit(lineEdit))
+		self.layout.addLayout(layout)
 
-	def getLocalLayout(self):
-		localLayout = QHBoxLayout()
-		localLayout.setSpacing(0)
-		localLayout.setContentsMargins(0,0,0,0)
-		localLayout.addWidget(QLabel("Name "))
-		localLayout.addWidget(QLineEdit(settings.NAME.value))
-		localLayout.addWidget(QLabel("Folder "))
-		localLayout.addWidget(QLineEdit(settings.FOLDER.value))
-		return localLayout
+	def addDimensionsLayout(self):
+		self.addLabelAndLineEdit("Width", str(self.listener.getWidth()))
+		self.addLabelAndLineEdit("Height", str(self.listener.getHeight()))
+	
+	def addServerLayout(self):
+		self.addLabelAndLineEdit("Server IP", self.listener.getIp())
+		self.addLabelAndLineEdit("Server Port", str(self.listener.getPort()))
+
+	def addLocalLayout(self):
+		self.addLabelAndLineEdit("Name", self.listener.getName())
+		self.addLabelAndLineEdit("Folder", self.listener.getFolder())
+

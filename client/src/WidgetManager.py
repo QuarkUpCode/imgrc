@@ -1,10 +1,19 @@
 from .MenuController import MenuController
 from .MenuWidget import MenuWidget
+from .SenderController import SenderController
+from .SenderWidget import SenderWidget
+from .ViewerController import ViewerController
+from .ViewerWidget import ViewerWidget
+from .SettingsController import SettingsController
+from .SettingsWidget import SettingsWidget
 
 class WidgetManager():
 	def __init__(self, settings, mainWindow):
 		self.settings = settings
 		self.mainWindow = mainWindow
+		self.loadMenuView()
+
+	def loadMenuView(self):
 		self.currentController = MenuController(self)
 		menuWidget = MenuWidget(self.currentController)
 		self.mainWindow.loadWidget(menuWidget)
@@ -20,7 +29,7 @@ class WidgetManager():
 		self.mainWindow.loadWidget(viewerWidget)
 
 	def loadSettingsView(self):
-		self.currentController = SettingsController(self)
+		self.currentController = SettingsController(self, self.settings)
 		settingsWidget = SettingsWidget(self.currentController)
 		self.mainWindow.loadWidget(settingsWidget)
 
