@@ -12,15 +12,21 @@ class MenuWidget(QWidget):
 		sendButton = QPushButton("Send Image")
 		seeButton = QPushButton("See Image")
 		settingsButton = QPushButton("Settings")
-		sendButton.clicked.connect(lambda: self.clicked(0))
-		seeButton.clicked.connect(lambda: self.clicked(1))
-		settingsButton.clicked.connect(lambda: self.clicked(2))
+		sendButton.clicked.connect(lambda: self.OnSendClick())
+		seeButton.clicked.connect(lambda: self.OnSeeClick())
+		settingsButton.clicked.connect(lambda: self.OnSettingsClick())
 
 		self.layout.addWidget(sendButton)
 		self.layout.addWidget(seeButton)
 		self.layout.addWidget(settingsButton)
 		self.setLayout(self.layout)
 
-	def clicked(self, index):
-		self.listener.clicked(index)
+	def OnSendClick(self):
+		self.listener.OnSendClick()
+
+	def OnSeeClick(self):
+		self.listener.OnSeeClick()
+
+	def OnSettingsClick(self):
+		self.listener.OnSettingsClick()
 
