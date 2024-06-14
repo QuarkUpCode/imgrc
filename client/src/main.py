@@ -20,6 +20,7 @@ def main():
 
 	app = QApplication([])
 	mainwindow = MainWindow(settings)
+	mainwindow.show()
 	app.exec_()
 	# Nothing shall be executed after this point
 

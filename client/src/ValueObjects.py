@@ -17,9 +17,7 @@ class Ip(ValueObject):
 			raise ValueError(f"Value does not match IP format 'xxx.xxx.xxx.xxx' : {value}")
 
 	def checkIpFormat(self, value):
-		print(value)
 		numbers = value.split(".")
-		print(numbers)
 		if len(numbers) != 4:
 			return False
 		for number in numbers:
