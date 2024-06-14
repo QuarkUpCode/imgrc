@@ -21,7 +21,8 @@ class SettingsController():
 	def getFolder(self):
 		return self.settings.FOLDER
 
-	def onSaveButtonClick(self, settingsForm):
-		self.settings.applyForm(settingsForm)
+	def onSaveButtonClick(self, settingsDto):
+		self.settings.update(settingsDto)
+		self.widgetManager.reloadSettings()
 		self.widgetManager.loadMenuView()
 

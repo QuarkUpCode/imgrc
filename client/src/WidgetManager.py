@@ -13,6 +13,9 @@ class WidgetManager():
 		self.mainWindow = mainWindow
 		self.loadMenuView()
 
+	def reloadSettings(self):
+		self.mainWindow.reloadSettings()
+
 	def loadMenuView(self):
 		self.currentController = MenuController(self)
 		menuWidget = MenuWidget(self.currentController)

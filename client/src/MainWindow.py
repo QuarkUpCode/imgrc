@@ -16,8 +16,11 @@ class MainWindow(QMainWindow):
 		self.setWindowIcon(QIcon(ICON_FILE))
 		self.setContentsMargins(0,0,0,0)
 
-		self.menu = WidgetManager(settings, self)
+		self.widgetManager = WidgetManager(settings, self)
 
 	def loadWidget(self, widget):
 		self.setCentralWidget(widget)
+
+	def reloadSettings(self):
+		self.resize(self.settings.width, self.settings.height)
 

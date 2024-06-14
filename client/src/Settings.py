@@ -2,7 +2,18 @@ from .exceptions import UndefinedSettingError
 from .ValueObjects import Ip, PortNumber, PosInt, Name
 
 
-class SettingsBuilder():
+class SettingsDTO():
+	@classmethod
+	def fromList(cls, list):
+		settings = cls()
+		settings.SERVER_IP = Ip(list[0])
+		settings.SERVER_PORT = PortNumber(list[1])
+		settings.WIDTH = PosInt(list[2])
+		settings.HEIGHT = PosInt(list[3])
+		settings.NAME = Name(list[4])
+		settings.FOLDER = list[5]
+		return settings
+	
 	def __init__(self):
 		self.SERVER_IP = None
 		self.SERVER_PORT = None
@@ -10,27 +21,6 @@ class SettingsBuilder():
 		self.HEIGHT = None
 		self.NAME = None
 		self.FOLDER = None
-
-	def setIp(self, value):
-		self.SERVER_IP = Ip(value)
-
-	def setPort(self, value):
-		self.SERVER_PORT = PortNumber(value)
-
-	def setWidth(self, value):
-		self.WIDTH = PosInt(value)
-
-	def setHeight(self, value):
-		self.HEIGHT = PosInt(value)
-
-	def setName(self, value):
-		self.NAME = Name(value)
-
-	def setFolder(self, value):
-		self.FOLDER = value
-
-	def build(self):
-		return Settings.fromBuilder(self)
 
 
 class Settings():
@@ -81,17 +71,11 @@ class Settings():
 	def height(self):
 		return self.HEIGHT.value
 
-	def update(self, form):
-		if form.SERVER_IP is not None:
-			self.setSetting("SERVER_IP", form.SERVER_IP.value)
-		if form.SERVER_PORT is not None:
-			self.setSetting("SERVER_PORT", form.SERVER_PORT.value)
-		if form.WIDTH is not None:
-			self.setSetting("WIDTH", form.WIDTH.value)
-		if form.HEIGHT is not None:
-			self.setSetting("HEIGHT", form.HEIGHT.value)
-		if form.NAME is not None:
-			self.setSetting("NAME", form.NAME.value)
-		if form.FOLDER is not None:
-			self.setSetting("FOLDER", form.FOLDER)
+	def update(self, dto):
+		self.SERVER_IP = dto.SERVER_IP
+		self.SERVER_PORT = dto.SERVER_PORT
+		self.WIDTH = dto.WIDTH
+		self.HEIGHT = dto.HEIGHT
+		self.NAME = dto.NAME
+		self.FOLDER = dto.FOLDER
 
